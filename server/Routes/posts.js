@@ -42,9 +42,50 @@ import data from "../data";
 const postRouter = express.Router();
 postRouter.use(express.json()); // to use body object in requests
 
+/**
+ * @swagger
+ * /posts:
+ *   get:
+ *     summary: Returns all posts
+ *     tags: [Posts]
+ *     responses:
+ *       200:
+ *         description: the list of the posts
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Post'
+ */
+
 postRouter.get("/", (req, res) => {
   res.send(data);
 });
+
+/**
+ * @swagger
+ * /posts/{id}:
+ *   get:
+ *     summary: gets posts by id
+ *     tags: [Posts]
+ *     parameters:
+ *       - in : path
+ *         name: id
+ *         description: id of post
+ *         schema:
+ *           type: integer
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: posts by its id
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Post'
+ *       400:
+ *         description: post can not be found
+ */
 
 postRouter.get("/:id", (req, res) => {
   const post = data.find((post) => post.id === +req.params.id);
@@ -53,6 +94,29 @@ postRouter.get("/:id", (req, res) => {
   }
   res.send(post);
 });
+
+/**
+ * @swagger
+ * /posts:
+ *   post:
+ *     summary: Create a new book
+ *     tags: [Posts]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Post'
+ *     responses:
+ *       200:
+ *         description: The post was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Post'
+ *       500:
+ *         description: Some server error
+ */
 
 postRouter.post("/", (req, res) => {
   try {
@@ -67,6 +131,39 @@ postRouter.post("/", (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /posts/{id}:
+ *   put:
+ *     summary: updates posts by id
+ *     tags: [Posts]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: post id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Post'
+ *     responses:
+ *       200:
+ *         decsription: The post was updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Post'
+ *       404:
+ *         description: post was not found.
+ *       500:
+ *         description: Some errors happend.
+ *
+ */
+
 postRouter.put("/:id", (req, res) => {
   try {
     let post = data.find((post) => post.id === +req.params.id);
@@ -79,6 +176,27 @@ postRouter.put("/:id", (req, res) => {
     return res.status(500).send(error);
   }
 });
+
+/**
+ * @swagger
+ *  /posts/{id}:
+ *    delete:
+ *      summary: removes post from array
+ *      tags: [Posts]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          description: post id
+ *          required: true
+ *          schema:
+ *            type: integer
+ *      responses:
+ *        200:
+ *          description: The post was deleted
+ *        404:
+ *          description: The post was not found
+ *
+ */
 
 postRouter.delete("/:id", (req, res) => {
   let post = data.find((post) => post.id === +req.params.id);
