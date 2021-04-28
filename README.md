@@ -2,10 +2,9 @@
 
 The code in this repository is based on:
 
-- [NodeJS Swagger API Documentation Tutorial Using Swagger JSDoc
-  ](https://youtu.be/S8kmHtQeflo)
-- [React Query 3 - CRUD Library Application](https://youtu.be/4UCwA2n4gsA)
 - [How to implement and use Swagger in Node.js](https://javascript.plainenglish.io/how-to-implement-and-use-swagger-in-nodejs-d0b95e765245)
+- [NodeJS Swagger API Documentation Tutorial Using Swagger JSDoc](https://youtu.be/S8kmHtQeflo)
+- [React Query 3 - CRUD Library Application](https://youtu.be/4UCwA2n4gsA)
 
 ## Client
 
