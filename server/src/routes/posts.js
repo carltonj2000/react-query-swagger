@@ -37,7 +37,7 @@
  */
 
 import express from "express";
-import data from "../data";
+import data from "../../data";
 
 const postRouter = express.Router();
 postRouter.use(express.json()); // to use body object in requests
@@ -160,7 +160,7 @@ postRouter.post("/", (req, res) => {
  *       404:
  *         description: post was not found.
  *       500:
- *         description: Some errors happend.
+ *         description: Some errors happened.
  *
  */
 
