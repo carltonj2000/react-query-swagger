@@ -1,21 +1,17 @@
 import { Flex, Box, Heading } from "rebass/styled-components";
-import { useMutation, useQuery } from "react-query";
 import Loader from "react-loader-spinner";
 import { useHistory, useParams } from "react-router-dom";
 
-import { getBook, updateBook } from "../api";
 import { Container, BookForm } from "../shared";
+import { useFetchBook } from "./useFetchBook";
+import { useUpdateBook } from "./useUpdateBook";
 
 export const UpdateBook = () => {
   const { id } = useParams();
   const history = useHistory();
 
-  const { data, error, isLoading, isError } = useQuery(
-    ["book", { id }],
-    getBook
-  );
-
-  const { mutateAsync, isLoading: isMutating } = useMutation(updateBook);
+  const { data, error, isLoading, isError } = useFetchBook(id);
+  const { mutateAsync, isMutating } = useUpdateBook();
 
   const onFormSubmit = async (data) => {
     await mutateAsync({ ...data, id });
@@ -25,7 +21,7 @@ export const UpdateBook = () => {
   if (isLoading)
     return (
       <Container>
-        <Flex py="5" justifyContent="center">
+        <Flex py="5" justifyContent="center" data-testid="loader">
           <Loader type="ThreeDots" color="#ccc" height={30} />
         </Flex>
       </Container>
